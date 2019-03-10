@@ -15,7 +15,6 @@
 -   [Git config](#git-config)
     -   [Local](#local)
     -   [Global ](#global)
--   [](#section)
 -   [API](#api)
 
 Prerequisites for development
@@ -142,3 +141,5 @@ commit the collection to the repository.
 
 If you have any other information that you want to add, feel free to
 create a pull request
+
+Be sure to check out the Google Drive for lots of information
