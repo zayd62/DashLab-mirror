@@ -96,6 +96,8 @@ How to setup project (initially)
 
     c.  Select the interpreter with `DashLab` in its name
 
+5. `pipenv install` will install all dependencies using the `Pipfile` and `Pipfile.lock`
+
 Git config
 ----------
 
