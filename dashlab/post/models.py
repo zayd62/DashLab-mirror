@@ -5,6 +5,7 @@ from django.db import models
 
 class SocialMediaAccount(models.Model):
     # a choice means that only a certain value can be used
+    # prevents a 'facebook' and 'Facebook' being in the database
     # https://docs.djangoproject.com/en/2.1/ref/models/fields/#choices
     PLATFORM_CHOICES = (('facebook', 'Facebook Account'),
                         ('twitter', 'Twitter Account'))
