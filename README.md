@@ -112,6 +112,13 @@ How to setup project (initially)
 7.  cd into `dashlab` and if you type `ls`, a file `manage.py` should
     show up
 
+8. Then run the following:
+
+
+   `python manage.py makemigrations post`
+   `python manage.py migrate`
+
+
 8.  typing `python manage.py runserver` will start the server and the IP
     address (most likely `http://127.0.0.1:8000` but double check) will
     be listed
