@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "a4b18154-9684-472a-aa25-aa44d0760094",
+		"_postman_id": "4e59b35d-ae2e-421a-bfaa-85e9e60531cd",
 		"name": "DashLab API Sample",
-		"description": "Sample API requsts for DashLab",
+		"description": "Sample API requsts for DashLab. **There is no users or authentication**\n\n# NOTE\n- Since `post` stores `social media account`, you will have to create the social media account firsts. There should be a some sample request you can make.\n\n-  Anything after a colon means it is a variable used by Postman",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -19,9 +19,29 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": ""
+							"raw": "http://127.0.0.1:8000/api/post/:id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"post",
+								":id"
+							],
+							"variable": [
+								{
+									"description": "The id used by Django. If no id is provided, it will get everything",
+									"key": "id",
+									"value": ""
+								}
+							]
 						},
-						"description": "This request will get the post \nCURRENTLY NO AUTHETICATION OR USERS"
+						"description": "This request will get all the post stored. It will return the following\n\n| Key          \t| Meaning                                                                                   \t\t|\n|--------------\t|-------------------------------------------------------------------------------------------\t\t|\n| text_content \t| The text contents of a post                                                               \t\t|\n| created_at   \t| Returns the date and time of when the post is created as a `string` in ISO 8601 format. \t \t\t|\n| account      \t| The id of the Social Media Account the post has/is/will be posted to. This is an array of `int`   |"
 					},
 					"response": []
 				},
@@ -29,15 +49,35 @@
 					"name": "Create Post",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"text_content\": \"this is some content. SMASH THAT LIKE BUTTON\",\n\t\"account\": [2]\n}"
 						},
 						"url": {
-							"raw": ""
+							"raw": "http://127.0.0.1:8000/api/post/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"post",
+								""
+							]
 						},
-						"description": "Adds post to the API\nNOTE NOT COMPLETE"
+						"description": "This request will create a post and upload to Server. `POST` does not require `id` parameter but requires all the other parameters mentioned in `GET`. \n\nNote that `account` is an array of type `int`."
 					},
 					"response": []
 				},
@@ -69,15 +109,17 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "",
+									"description": "The id used by Django. "
 								}
 							]
-						}
+						},
+						"description": "This will delete a post given an `id`. You can obtain the `id` using `GET`"
 					},
 					"response": []
 				},
 				{
-					"name": "Partial update",
+					"name": "Update Post",
 					"request": {
 						"method": "PATCH",
 						"header": [
@@ -90,7 +132,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"text_content\": \"i have been updated\"\n}"
+							"raw": "{\n\t\"account\": [4,2]\n}"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/post/:id/",
@@ -111,16 +153,220 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "4",
+									"description": "The id used by Django. "
 								}
 							]
 						},
-						"description": "allows you to update a parameter"
+						"description": "Allows you to update the Post. You obtain an `id` uing a `GET` request.\n\nNOTE: you don't have to include all the parameters, just the parameter you want to modify"
 					},
 					"response": []
 				}
 			],
 			"description": "api requests for sample"
+		},
+		{
+			"name": "Social Media Account",
+			"item": [
+				{
+					"name": "Get Social Media Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/socialmediaaccount/:id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"socialmediaaccount",
+								":id"
+							],
+							"variable": [
+								{
+									"description": "The id used by Django. If no id is provided, it will get everything",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "This request will get the Social Media Accounts stored. It will return the following\n\n| Key      \t | Meaning                                                                                                                                 \t\t|\n|----------\t |----------------------------------------------------------------------------------------------------------------------------------------------|\n| id       \t | The internal id used by Django. This is an `int`                                                                                        \t\t|\n| name     \t | The name of the account                                                                                                                 \t\t|\n| platform \t | The social media platform that the account belongs to. They can only be following values: <ul><li>`facebook`</li><li>`twitter`</li></ul> \t|\n| created_at | Returns the date and time of when the post is created as a `string` in ISO 8601 format. \t\t\t\t\t\t\t\t\t\t|"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Social Media Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"DashLab UK\",\n    \"platform\": \"facebook\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/socialmediaaccount/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"socialmediaaccount",
+								""
+							]
+						},
+						"description": "This request will create Social Media Accounts and upload to Server. `POST` does **NOT** require the following parameter(s):\n\n\n- `id`\n- `created_at`"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Social Media Account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/socialmediaaccount/:id/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"socialmediaaccount",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "The id (used by django). "
+								}
+							]
+						},
+						"description": "This will delete social Media Accounts given an `id`. You can obtain the `id` using a `GET` request"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Social Media Account",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"DashLab Twitter UK\"\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/socialmediaaccount/:id/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"socialmediaaccount",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"description": "The id used by Django. ",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Allows you to update the Social Media Account. You obtain an `id` uing a `GET` request and the key (the one on the left) is inserted into the body (in quotation marks) and the value you want.\n\nNOTE: you don't have to include all the parameters, just the parameter you want to modify"
+					},
+					"response": []
+				}
+			],
+			"description": "Sample API requests for interacting with Social Media Accounts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "91b0e0c3-4f30-4019-8b55-6450d6b935cd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "038bfb83-b661-4b39-be67-671ad325ee79",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fefb4cd0-bab9-450a-bb76-3253d2ea33a4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "829f75b5-3e2b-4685-8339-e73ba5752c44",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
