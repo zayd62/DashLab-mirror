@@ -5,7 +5,7 @@
     -   [Backend](#backend)
     -   [Code editor and other tools](#code-editor-and-other-tools)
 -   [How to setup project (initially)](#how-to-setup-project-initially)
--   [Git config](#git-config)
+-   [Git](#git)
     -   [Local](#local)
     -   [Global](#global)
 -   [API](#api)
@@ -127,8 +127,21 @@ How to setup project (initially)
         more information as well as a basic GUI for interacting with the
         API.
 
-Git config
+Git
 ----------
+When you merge on github, Github automatically applies the `--no-ff` option, what
+this means is that when you merge, it create another commit. This helps preserve the
+tree like structure that branching gives you. Here is a guide on when to use `--no-ff`
+
+1. If you merge two branches on GitHub: There is nothing for you to do(Yay!)
+2. If you are running a `git pull`: Also nothing for you to do(Yay!)
+3. Merging two branches locally that are on your machine **AND NOT** on GitHub: If you want to merge branch `b` **TO**
+branch `a` (all changes in `b` transfer to `a`), you perform:
+
+    ```
+    git checkout a
+    git merge --no-ff b
+    ```
 
 There are two config files, `local` and `global`. Local will only apply
 to the current repository, Global will apply to all repositories. The
@@ -144,11 +157,6 @@ The reason you need these options is that you need it when you commit,
 you need to be able to identify the people that made the commit
 
 ### Global
-
--   `git config --global --add merge.ff false` Makes it so that when you
-    merge, it creates a separate commit. See
-    [*https://www.relativesanity.com/articles/ffwd/*](https://www.relativesanity.com/articles/ffwd/)
-    for more information
 
 -   Git credential cache. see
     ([*https://help.github.com/en/articles/caching-your-github-password-in-git*](https://help.github.com/en/articles/caching-your-github-password-in-git))
