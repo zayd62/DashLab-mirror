@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import Login from './Login'
+import Admin from './Admin'
+import JMM from './JMM'
+import CreateAccount from './CreateAccount'
 import './App.css';
 
 class App extends Component {
@@ -7,6 +11,9 @@ class App extends Component {
     return (
       <div className="App">
         <Login /> 
+        {/* <Admin /> */}
+        {/* <JMM /> */}
+        {/* <CreateAccount /> */}
       </div>
     );
   }

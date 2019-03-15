@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography, Button, Grid, InputLabel, Input, NativeSelect, FormControl, FormHelperText, TextField } from '@material-ui/core'
+import { Typography, Button, FormControl, TextField } from '@material-ui/core'
 
 export class Login extends Component {
 
@@ -14,7 +14,12 @@ export class Login extends Component {
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    if(((this.state.email.length === 0) || (this.state.password.length === 0))){
+      return false
+    } else {
+      return true
+    }
+    
   }
 
   handleChange = name => event => {
@@ -25,20 +30,28 @@ export class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    if (this.validateForm) {
-      this.setState({ errorText: "Email or password is incorrect" })
+    if (!(this.validateForm())) {
+      console.log("fields are missing")
+      this.setState({ errorText: "fields are missing" })
+    } else {
+      console.log("fields are not missing")
+      this.setState({ errorText: "fields are not missing" })
+
     }
+
+    console.log("submit button pressed")
+
   }
 
   render() {
     return (
       <Fragment>
         <div>
-          <h1>thi is the login page</h1>
+          <h1>this the login page</h1>
         </div>
 
         <form onSubmit={this.handleSubmit}>
-          <FormControl required error={this.state.error}>
+          <FormControl >
             <TextField
               id="email"
               label="Email"
@@ -64,9 +77,11 @@ export class Login extends Component {
             <Button variant="contained" color="primary" type="submit" >
               Submit
             </Button>
+
             <Typography variant = "body2" color = "error">
               {this.state.errorText}
             </Typography>
+            
           </FormControl>
 
 
