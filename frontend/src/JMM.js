@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
-import Typography from '@material-ui/core'
-export class Admin extends Component {
+import React, { Component } from 'react'
+import { Typography } from '@material-ui/core'
+export class JMM extends Component {
   render() {
     return (
       <div>
@@ -13,4 +13,4 @@ export class Admin extends Component {
   }
 }
 
-export default Admin
+export default JMM
