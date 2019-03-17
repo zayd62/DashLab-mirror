@@ -11,12 +11,33 @@ from .serializers import SocialMediaPostSerializer, SocialMediaAccountSerializer
 
 
 class SocialMediaPostViewset(viewsets.ModelViewSet):
-    queryset = SocialMediaPost.objects.all()
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+
     serializer_class = SocialMediaPostSerializer
+
+    def get_queryset(self):
+        return self.request.user.post.all()
+
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
 
 
 class SocialMediaAccountViewset(viewsets.ModelViewSet):
-    queryset = SocialMediaAccount.objects.all()
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+
     serializer_class = SocialMediaAccountSerializer
+
+    def get_queryset(self):
+        return self.request.user.post.all() 
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)   
+
+
