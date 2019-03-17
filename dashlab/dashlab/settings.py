@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'sysUsers'
 ]
 
-AUTH_USER_MODEL = "sysUsers.SysUser"
+# Changes the built-in user model to our newly created one
+AUTH_USER_MODEL = "sysUsers.User"
 
 
 REST_FRAMEWORK = {
