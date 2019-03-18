@@ -1,7 +1,7 @@
 from django.db import models
+from accounts.models import MediaManager
 
 # Models determine how the data is stored in the database. Each class is a different model
-
 
 class SocialMediaAccount(models.Model):
     # a choice means that only a certain value can be used
@@ -17,9 +17,9 @@ class SocialMediaAccount(models.Model):
     def __str__(self):
         return self.name + " - " + self.platform
 
-
 class SocialMediaPost(models.Model):
     text_content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    creator = models.ForeignKey(MediaManager, on_delete=models.CASCADE)
     # This relationship means that a post can have many social media accounts
     account = models.ManyToManyField(SocialMediaAccount)

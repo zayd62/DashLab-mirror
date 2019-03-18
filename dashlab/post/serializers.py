@@ -5,7 +5,6 @@ from .models import SocialMediaPost, SocialMediaAccount
 # Each model has its own serializer
 # not to sure what the Meta class does. feel free to research
 
-
 class SocialMediaPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMediaPost
