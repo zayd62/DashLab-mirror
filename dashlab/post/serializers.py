@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SocialMediaPost, SocialMediaAccount
+from .models import *
 
 # Serializers convert from model to native python which can then be converted to JSON
 # Each model has its own serializer
@@ -16,3 +16,4 @@ class SocialMediaAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMediaAccount
         fields = '__all__'
+

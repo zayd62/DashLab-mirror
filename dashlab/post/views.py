@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
-from .models import SocialMediaPost, SocialMediaAccount
-from .serializers import SocialMediaPostSerializer, SocialMediaAccountSerializer
+from .models import *
+from .serializers import *
 
 # django-rest views determine the HTTP request types such as GET, POST, DELETE and PATCH
 # Not to sure what viewsets do but as far as i can tell, they are django-rest views but does all the work

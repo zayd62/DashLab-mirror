@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Models determine how the data is stored in the database. Each class is a different model
 
@@ -23,3 +24,4 @@ class SocialMediaPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # This relationship means that a post can have many social media accounts
     account = models.ManyToManyField(SocialMediaAccount)
+

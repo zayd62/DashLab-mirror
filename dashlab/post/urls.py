@@ -1,5 +1,5 @@
 from rest_framework import routers
-from .api import SocialMediaPostViewset, SocialMediaAccountViewset
+from .views import *
 
 # this is used to create the urls for the api
 # each viewset needs its own endpoint
