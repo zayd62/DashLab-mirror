@@ -1,5 +1,6 @@
+from djoser.serializers import UserSerializer
 from rest_framework import serializers
-from .models import *
+from .models import SocialMediaAccount, SocialMediaPost, Profile
 
 # Serializers convert from model to native python which can then be converted to JSON
 # Each model has its own serializer
@@ -17,3 +18,7 @@ class SocialMediaAccountSerializer(serializers.ModelSerializer):
         model = SocialMediaAccount
         fields = '__all__'
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__' 
