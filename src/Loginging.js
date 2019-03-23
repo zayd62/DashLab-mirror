@@ -8,8 +8,8 @@ var config = {
 };
 
 var body = {
-  "password": "123dingaling",
-  "username": "vg"
+  password: "123dingaling",
+  username: "vg"
 };
 
 export default class Loginging extends Component {
@@ -27,10 +27,6 @@ export default class Loginging extends Component {
   }
 
   render() {
-    return (
-        <div>
-            {this.state.confirmation.auth_token}
-        </div>
-      );
+    return <div>{this.state.confirmation.auth_token}</div>;
   }
 }
