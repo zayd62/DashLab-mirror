@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {
   Dialog,
   DialogActions,
@@ -18,6 +19,7 @@ import {
   Toolbar
 } from "@material-ui/core";
 import style from "./Login.css";
+import * as urls from "./APIURLS";
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +29,11 @@ export class Login extends Component {
       password: "",
       errorText: ""
     };
+  }
+
+  // tesitng the urls resolve correctly
+  componentDidMount() {
+    console.log(urls.createuser);
   }
 
   validateForm() {
@@ -54,49 +61,43 @@ export class Login extends Component {
             <Typography varian="h2" noWrap>
               DashLab
             </Typography>
-            <div className="Barbuttonss">
-              <Button>Login</Button>
-            </div>
           </Toolbar>
         </AppBar>
         <div className="Backbox3">
-        <div>
-          <h1>Login</h1>
-        </div>
+          <div>
+            <h1>Login</h1>
+          </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <FormControl required error={this.state.error}>
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              autoComplete="email"
-              margin="normal"
-              variant="outlined"
-              onChange={this.handleChange("email")}
-              value={this.state.email}
-            />
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              variant="outlined"
-              onChange={this.handleChange("password")}
-              value={this.state.password}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Log in
-            </Button>
-            <Button variant="contained" color="blue" type="submit">
-              Register
-            </Button>
-            <Typography variant="body2" color="error">
-              {this.state.errorText}
-            </Typography>
-          </FormControl>
-        </form>
+          <form onSubmit={this.handleSubmit}>
+            <FormControl required error={this.state.error}>
+              <TextField
+                id="email"
+                label="Email"
+                type="email"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+                onChange={this.handleChange("email")}
+                value={this.state.email}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+                onChange={this.handleChange("password")}
+                value={this.state.password}
+              />
+              <Button variant="contained" color="primary" type="submit">
+                Log in
+              </Button>
+              <Typography variant="body2" color="error">
+                {this.state.errorText}
+              </Typography>
+            </FormControl>
+          </form>
         </div>
       </Fragment>
     );
