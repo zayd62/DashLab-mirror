@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions
-from .models import SocialMediaPost, SocialMediaAccount
-from .serializers import SocialMediaPostSerializer, SocialMediaAccountSerializer
+from .models import SocialMediaAccount, SocialMediaPost, Profile
+from .serializers import SocialMediaPostSerializer, SocialMediaAccountSerializer, ProfileSerializer
+
 
 # django-rest views determine the HTTP request types such as GET, POST, DELETE and PATCH
 # Not to sure what viewsets do but as far as i can tell, they are django-rest views but does all the work
@@ -12,11 +13,17 @@ from .serializers import SocialMediaPostSerializer, SocialMediaAccountSerializer
 
 class SocialMediaPostViewset(viewsets.ModelViewSet):
     queryset = SocialMediaPost.objects.all()
-    permission_classes = [permissions.AllowAny]
     serializer_class = SocialMediaPostSerializer
 
 
 class SocialMediaAccountViewset(viewsets.ModelViewSet):
     queryset = SocialMediaAccount.objects.all()
-    permission_classes = [permissions.AllowAny]
     serializer_class = SocialMediaAccountSerializer
+
+class ProfileViewset(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
+
+# viewset for user model
