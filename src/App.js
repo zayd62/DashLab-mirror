@@ -7,13 +7,19 @@ import Registration from "./Registration";
 import Createsocial from "./Createsocial";
 import MyprofileJMM from "./MyprofileJMM";
 import MyprofileSMM from "./MyprofileSMM";
+import PersonList from "./PersonList";
+import Loginging from "./Loginging";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Login />
-      </div>
+      <Router>
+        <Route path="/" exact component={Loginging} />
+        <Route path="/jmm/" component={MyprofileJMM} />
+        <Route path="/jmm/createPost" component={MakeAPost} />
+        <Route path="/admin/createSocial/" component={Createsocial} />
+        <Route path="/admin/createUser/" component={Registration} />
+      </Router>
     );
   }
 }

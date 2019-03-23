@@ -20,6 +20,8 @@ import {
 } from "@material-ui/core";
 import style from "./Login.css";
 import * as urls from "./APIURLS";
+import MyprofileJMM from "./MyprofileJMM";
+
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +36,7 @@ export class Login extends Component {
   // tesitng the urls resolve correctly
   componentDidMount() {
     console.log(urls.createuser);
+    // console.log()
   }
 
   validateForm() {
@@ -90,7 +93,13 @@ export class Login extends Component {
                 onChange={this.handleChange("password")}
                 value={this.state.password}
               />
-              <Button variant="contained" color="primary" type="submit">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                component={Link}
+                to="/JMM"
+              >
                 Log in
               </Button>
               <Typography variant="body2" color="error">
