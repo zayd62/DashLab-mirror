@@ -54,6 +54,14 @@ export class Registration extends Component {
 
   }
 
+  getErrorMessageArray(errmsg) {
+    var errors;
+    Object.keys(errmsg[1]).forEach(function eachKey(key) {
+      errors = errmsg[1][key];
+    });
+    return errors;
+  }
+
   // for dialog box
   handleClickOpen = () => {
     this.setState({ dialogIsOpen: true });
@@ -102,20 +110,8 @@ export class Registration extends Component {
       console.log(res)
       if (!(res[0] === 201)) {
         // unsuccessful user creation 
-        var errmsg = [];
 
-        var obj = res[1]
-        for (var key in obj) {
-          if (obj.hasOwnProperty(key)) {
-            console.log(key + " -> " + obj[key]);
-            errmsg.push(obj[key])
-
-          }
-        }
-        console.log("the stuff going in generate list")
-        console.log(errmsg)
-        var todisplay = (this.generateUnorderedList(["eewgeg", "egewg", "fgfg"], 1))
-
+        var todisplay = (this.generateUnorderedList(this.getErrorMessageArray(res), 1))
         this.setState({ errorText: todisplay })
         this.setState({ dialogIsOpen: true })
       } else {
