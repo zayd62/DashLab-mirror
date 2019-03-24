@@ -23,7 +23,7 @@ class Profile(models.Model):
     dashlab_admin = models.BooleanField(default=False)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
-    account_permission = models.ManyToManyField(SocialMediaAccount)
+    account_permission = models.ManyToManyField(SocialMediaAccount, blank = True, null = True)
 
     def __str__(self):
         return str(self.first_name +  " " + self.last_name)

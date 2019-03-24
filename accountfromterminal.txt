@@ -1,0 +1,2 @@
+python manage.py createsuperuser
+fill in username, email and password
