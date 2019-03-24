@@ -15,7 +15,7 @@ import {
   DialogContentText,
 } from "@material-ui/core";
 import "./Registration.css";
-import { FUNC_CREATEUSERMODEL, FUNC_CREATEUSERMODELTWO } from "./api";
+import { FUNC_SAMPLEGET } from "./api";
 export class Registration extends Component {
   constructor(props) {
     super(props);
@@ -52,7 +52,6 @@ export class Registration extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     console.log("in handlesubmit, checking for empty fields")
 
     // check if any field are empty. if they are, call return to stop execution of handle submit
@@ -78,8 +77,7 @@ export class Registration extends Component {
       password: this.state.password
     }
 
-    FUNC_CREATEUSERMODEL()
-    FUNC_CREATEUSERMODELTWO()
+    FUNC_SAMPLEGET()
 
 
 

@@ -15,12 +15,15 @@ export const URL_PROFILE = `${URL_DOMAIN}/api/profile/`
 
 // API PLAYGROUND BELOW
 
-export const FUNC_CREATEUSERMODEL = async function getCities() {
+export const FUNC_SAMPLEGET = async function getCities() {
     console.log("hey its time to make a request")
+    var response;
     try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/todos/200").then(res => {
+        // change to ".../todos/2000"
+        await axios.get("https://jsonplaceholder.typicode.com/todos/2000").then(res => {
             console.log("the reposnse is here")
             console.log(res)
+            response = res
         })
 
     } catch (error) {
@@ -28,25 +31,12 @@ export const FUNC_CREATEUSERMODEL = async function getCities() {
         console.log("oh shit, thats not good")
         console.error(error.response.status);
         console.error(error.response.data);
+        response = error
 
     }
     console.log("this SHOULD print after the api response has been received has finished")
+    console.log(response)
 }
 
-export const FUNC_CREATEUSERMODELTWO = async function getCities() {
-    console.log("hey its time to make a request")
-    try {
-        // this should return a 404
-        const response = await axios.get("https://jsonplaceholder.typicode.com/todos/350").then(res => {
-            console.log("the reposnse is here")
-            console.log(res)
-        })
 
-    } catch (error) {
-        // https://github.com/axios/axios#handling-errors
-        console.log("oh shit, thats not good")
-        console.error(error.response.status);
-        console.error(error.response.data);
 
-    }
-}
