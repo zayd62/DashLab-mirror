@@ -21,7 +21,7 @@ import {
   Toolbar
 } from "@material-ui/core";
 import "./Createsocial.css";
-import {FUNC_CREATESOCIALMODEL} from './api'
+import { FUNC_CREATESOCIALMODEL } from "./api";
 import { resolve4 } from "dns";
 export class Createsocial extends Component {
   constructor(props) {
@@ -31,20 +31,19 @@ export class Createsocial extends Component {
       platform: "",
       name: "",
       errorText: "",
-      dialogIsOpen: false, //used to control the dialog box because 
-
+      dialogIsOpen: false //used to control the dialog box because
     };
   }
 
-    // for dialog box
-    handleClickOpen = () => {
-      this.setState({ dialogIsOpen: true });
-    };
-  
-    // for dialog box
-    handleClose = () => {
-      this.setState({ dialogIsOpen: false });
-    };
+  // for dialog box
+  handleClickOpen = () => {
+    this.setState({ dialogIsOpen: true });
+  };
+
+  // for dialog box
+  handleClose = () => {
+    this.setState({ dialogIsOpen: false });
+  };
 
   handleChange = name => event => {
     // handles the change in the value of the dropdown
@@ -52,47 +51,48 @@ export class Createsocial extends Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault()
+    event.preventDefault();
     // check if any field are empty. if they are, call return to stop execution of handle submit
     if (!(this.state.name && this.state.platform)) {
       // if it goes here, that means that any fields are empty
-      this.setState({ errorText: "Missing fields. Check that you have filled in every input" })
-      console.log("found missing fields")
-      this.setState({ dialogIsOpen: true })
-      return
+      this.setState({
+        errorText: "Missing fields. Check that you have filled in every input"
+      });
+      console.log("found missing fields");
+      this.setState({ dialogIsOpen: true });
+      return;
     }
 
-    console.log("no missing fields yay, creating a social media account model")
+    console.log("no missing fields yay, creating a social media account model");
 
     // making post request to api server to create user model
     // the headers for creating a post
     var config = {
       headers: { "Content-Type": "application/json" }
-    }
+    };
 
-    // the body containing the email, username and password 
+    // the body containing the email, username and password
     var body = {
       name: this.state.name,
       platform: this.state.platform
-    }
+    };
 
     FUNC_CREATESOCIALMODEL(body, config).then(res => {
-      console.log("this is the response in registrations.js")
-      console.log(res)
+      console.log("this is the response in registrations.js");
+      console.log(res);
       if (!(res[0] === 201)) {
-        // unsuccessful social media profile creation 
+        // unsuccessful social media profile creation
         // highly unlikely to fail
-        console.log(resolve4)
+        console.log(resolve4);
       } else {
         // successful user creation
-        console.log("eyy user was made")
-        console.log(res)
-
+        console.log("eyy user was made");
+        console.log(res);
 
         // create profile
       }
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -113,7 +113,6 @@ export class Createsocial extends Component {
             <h1>Create Social Media Account</h1>
           </div>
           <form className="Regform" onSubmit={this.handleSubmit}>
-
             <TextField
               className="name"
               id="name"
@@ -127,38 +126,40 @@ export class Createsocial extends Component {
             />
             <div>
               <FormControl>
-                <InputLabel shrink htmlFor="platformselect">Platform</InputLabel>
+                <InputLabel shrink htmlFor="platformselect">
+                  Platform
+                </InputLabel>
                 <NativeSelect
                   value={this.state.platform}
-                  onChange={this.handleChange('platform')}
-                  input={<Input name="platform" id="platformselect" />}>
-                  <option value="" disabled ></option>
+                  onChange={this.handleChange("platform")}
+                  input={<Input name="platform" id="platformselect" />}
+                >
+                  <option value="" disabled />
                   <option value={"twitter"}>twitter</option>
-                  <option value={"facebook"}>facebook</option>                </NativeSelect>
+                  <option value={"facebook"}>facebook</option>{" "}
+                </NativeSelect>
                 <FormHelperText>Use the dropdown to select </FormHelperText>
               </FormControl>
             </div>
-            <Button type="submit">
-              Submit
-          </Button>
+            <Button type="submit">Submit</Button>
           </form>
         </div>
 
         <Dialog open={this.state.dialogIsOpen} onClose={this.handleClose}>
-            <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
 
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {this.state.errorText}
-              </DialogContentText>
-            </DialogContent>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {this.state.errorText}
+            </DialogContentText>
+          </DialogContent>
 
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary" autoFocus>
-                Ok
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary" autoFocus>
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Fragment>
     );
   }
@@ -169,10 +170,10 @@ export default Createsocial;
 var res = [
   400,
   {
-    "password": [
+    password: [
       "This password is too short. It must contain at least 8 characters.",
       "This password is too common.",
       "This password is entirely numeric."
     ]
   }
-]
+];
