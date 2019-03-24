@@ -8,7 +8,6 @@ import Createsocial from "./Createsocial";
 import MyprofileJMM from "./MyprofileJMM";
 import MyprofileSMM from "./MyprofileSMM";
 import PersonList from "./PersonList";
-import Loginging from "./Loginging";
 
 class App extends Component {
   render() {
