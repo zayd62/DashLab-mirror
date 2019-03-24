@@ -19,7 +19,7 @@ import {
   Toolbar
 } from "@material-ui/core";
 import style from "./Login.css";
-import * as urls from "./APIURLS";
+import * as urls from "./api";
 import MyprofileJMM from "./MyprofileJMM";
 
 export class Login extends Component {
@@ -35,7 +35,7 @@ export class Login extends Component {
 
   // tesitng the urls resolve correctly
   componentDidMount() {
-    console.log(urls.createuser);
+    // console.log(urls.createuser);
     // console.log()
   }
 
@@ -97,14 +97,17 @@ export class Login extends Component {
                 variant="contained"
                 color="primary"
                 type="submit"
-                component={Link}
-                to="/JMM"
-              >
+                // component={Link}
+                // to="/JMM"
+                >
+
                 Log in
               </Button>
+
               <Typography variant="body2" color="error">
-                {this.state.errorText}
+                "{this.state.errorText}"
               </Typography>
+
             </FormControl>
           </form>
         </div>
