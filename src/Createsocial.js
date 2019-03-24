@@ -21,7 +21,7 @@ import {
   Toolbar
 } from "@material-ui/core";
 import "./Createsocial.css";
-import {FUNC_CREATESOCIALMODEL} from './api'
+import { FUNC_CREATESOCIALMODEL } from './api'
 import { resolve4 } from "dns";
 export class Createsocial extends Component {
   constructor(props) {
@@ -36,15 +36,15 @@ export class Createsocial extends Component {
     };
   }
 
-    // for dialog box
-    handleClickOpen = () => {
-      this.setState({ dialogIsOpen: true });
-    };
-  
-    // for dialog box
-    handleClose = () => {
-      this.setState({ dialogIsOpen: false });
-    };
+  // for dialog box
+  handleClickOpen = () => {
+    this.setState({ dialogIsOpen: true });
+  };
+
+  // for dialog box
+  handleClose = () => {
+    this.setState({ dialogIsOpen: false });
+  };
 
   handleChange = name => event => {
     // handles the change in the value of the dropdown
@@ -87,6 +87,7 @@ export class Createsocial extends Component {
         // successful user creation
         console.log("eyy user was made")
         console.log(res)
+        alert("The social media account was made")
 
 
         // create profile
@@ -134,7 +135,8 @@ export class Createsocial extends Component {
                   input={<Input name="platform" id="platformselect" />}>
                   <option value="" disabled ></option>
                   <option value={"twitter"}>twitter</option>
-                  <option value={"facebook"}>facebook</option>                </NativeSelect>
+                  <option value={"facebook"}>facebook</option>               
+                </NativeSelect>
                 <FormHelperText>Use the dropdown to select </FormHelperText>
               </FormControl>
             </div>
@@ -145,34 +147,23 @@ export class Createsocial extends Component {
         </div>
 
         <Dialog open={this.state.dialogIsOpen} onClose={this.handleClose}>
-            <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
 
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {this.state.errorText}
-              </DialogContentText>
-            </DialogContent>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {this.state.errorText}
+            </DialogContentText>
+          </DialogContent>
 
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary" autoFocus>
-                Ok
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary" autoFocus>
+              Ok
               </Button>
-            </DialogActions>
-          </Dialog>
+          </DialogActions>
+        </Dialog>
       </Fragment>
     );
   }
 }
 
 export default Createsocial;
-
-var res = [
-  400,
-  {
-    "password": [
-      "This password is too short. It must contain at least 8 characters.",
-      "This password is too common.",
-      "This password is entirely numeric."
-    ]
-  }
-]
