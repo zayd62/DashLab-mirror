@@ -13,12 +13,27 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
+  Select,
   FormHelperText,
   Input,
   NativeSelect,
 } from "@material-ui/core";
 import "./Registration.css";
+import { ProfileDropdown } from "./ProfileDropdown";
 import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL } from "./api";
+
+// const names = [
+//   'Oliver Hansen',
+//   'Van Henry',
+//   'April Tucker',
+//   'Ralph Hubbard',
+//   'Omar Alexander',
+//   'Carlos Abbott',
+//   'Miriam Wagner',
+//   'Bradley Wilkerson',
+//   'Virginia Andrews',
+//   'Kelly Snyder',
+// ];
 export class Registration extends Component {
   constructor(props) {
     super(props);
@@ -29,17 +44,76 @@ export class Registration extends Component {
       lname: "",
       password: "",
       errorText: "",
-      dialogIsOpen: false, //used to control the dialog box because 
+      dialogIsOpen: false, //used to control the dialog box 
+      resData: "",
+      optionsToRender: ""
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     FUNC_GETSOCIALMODEL().then(res => {
       console.log("this is GETTING ALL SOCIAL MEDIA ACCOUNTS registrations.js")
       console.log(res)
-      this.setState({allSocialAccount: res.data})
-      
+      this.setState({ resData: res.data })
+      console.log("the state is")
+      console.log(this.state.resData)
+      this.setState({optionsToRender: this.generateDropdown()})
     })
+
+  
+  }
+
+  generateDropdown(){
+    var names = this.state.resData
+    console.log("in generate dropdown")
+    console.log(names)
+
+    return (
+      <div>
+          <Select multiple native value={this.state.profileID} 
+          onChange={this.handleChangeMultiple} 
+          inputProps={
+              {id: 'select-multiple-native',}
+          }>
+          {names.map(name => (
+              <option key={name.id} value={name.id}>
+                  {(name.name + ": " +   name.platform.charAt(0).toUpperCase() + name.platform.slice(1))}
+              </option>
+          ))}
+    </Select>
+      </div>
+  )
+  }
+
+
+
+  // for dialog box
+  handleClickOpen = () => {
+    this.setState({ dialogIsOpen: true });
+  };
+
+  // for dialog box
+  handleClose = () => {
+    this.setState({ dialogIsOpen: false });
+  };
+
+  handleChange = name => event => {
+    // handles the change in the value of the dropdown
+    this.setState({ [name]: event.target.value });
+  };
+
+  // used for the select
+  handleChangeMultiple = event => {
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.setState({
+      profileID: value,
+    });
   };
 
   generateUnorderedList(listitems, key) {
@@ -61,21 +135,6 @@ export class Registration extends Component {
     });
     return errors;
   }
-
-  // for dialog box
-  handleClickOpen = () => {
-    this.setState({ dialogIsOpen: true });
-  };
-
-  // for dialog box
-  handleClose = () => {
-    this.setState({ dialogIsOpen: false });
-  };
-
-  handleChange = name => event => {
-    // handles the change in the value of the dropdown
-    this.setState({ [name]: event.target.value });
-  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -211,25 +270,14 @@ export class Registration extends Component {
                 value={this.state.password}
               />
 
-              <NativeSelect
-                  value={this.state.platform}
-                  onChange={this.handleChange('platform')}
-                  input={<Input name="platform" id="platformselect" />}>
-                  <option value="" disabled ></option>
-                  <option value={"twitter"}>twitter</option>
-                  <option value={"facebook"}>facebook</option>               
-                </NativeSelect>
-              <FormHelperText>Use the dropdown to select </FormHelperText>
             </div>
+
+            {this.state.optionsToRender}
 
             <Button className="regbut" color="primary" variant="contained" type="submit">
               Submit
             </Button>
           </form>
-
-          <Typography variant = "body2">
-            Account Creation successful.
-          </Typography>
         </div>
 
         <div>
