@@ -19,7 +19,6 @@ import {
   NativeSelect,
 } from "@material-ui/core";
 import "./Registration.css";
-import { ProfileDropdown } from "./ProfileDropdown";
 import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL } from "./api";
 
 // const names = [
@@ -46,7 +45,8 @@ export class Registration extends Component {
       errorText: "",
       dialogIsOpen: false, //used to control the dialog box 
       resData: "",
-      optionsToRender: ""
+      optionsToRender: "",
+      profileID: []
     };
   }
 
@@ -141,7 +141,7 @@ export class Registration extends Component {
     console.log("in handlesubmit, checking for empty fields")
 
     // check if any field are empty. if they are, call return to stop execution of handle submit
-    if (!(this.state.email && this.state.fname && this.state.lname && this.state.password)) {
+    if (!(this.state.email && this.state.fname && this.state.lname && this.state.password && (this.state.profileID.length !== 0))) {
       // if it goes here, that means that any fields are empty
       this.setState({ errorText: "Missing fields. Check that you have filled in every input" })
       console.log("found missing fields")
