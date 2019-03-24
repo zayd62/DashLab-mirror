@@ -19,7 +19,7 @@ export default class Loginging extends Component {
 
   componentDidMount() {
     axios
-      .post("http://7989ec42.ngrok.io/auth/token/login/", body, config)
+      .post("http://127.0.0.1:8000/auth/token/login/", body, config)
       .then(res => {
         const confirmation = res.data;
         this.setState({ confirmation });

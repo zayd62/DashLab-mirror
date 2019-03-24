@@ -9,12 +9,13 @@ import MyprofileJMM from "./MyprofileJMM";
 import MyprofileSMM from "./MyprofileSMM";
 import PersonList from "./PersonList";
 import Loginging from "./Loginging";
+import ErrorTester from "./ErrorTester";
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <Route path="/" exact component={Login} />
+        <Route path="/" exact component={ErrorTester} />
         <Route path="/jmm/" component={MyprofileJMM} />
         <Route path="/jmm/createPost" component={MakeAPost} />
         <Route path="/admin/createSocial/" component={Createsocial} />
