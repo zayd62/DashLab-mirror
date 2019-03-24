@@ -13,9 +13,12 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
+  FormHelperText,
+  Input,
+  NativeSelect,
 } from "@material-ui/core";
 import "./Registration.css";
-import { FUNC_SAMPLEGET } from "./api";
+import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL } from "./api";
 export class Registration extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +33,27 @@ export class Registration extends Component {
     };
   }
 
+  componentDidMount(){
+    FUNC_GETSOCIALMODEL().then(res => {
+      console.log("this is GETTING ALL SOCIAL MEDIA ACCOUNTS registrations.js")
+      console.log(res)
+      this.setState({allSocialAccount: res.data})
+      
+    })
+  };
+
+  generateUnorderedList(listitems, key) {
+    // generates unordered list to render
+    console.log("in generate")
+    console.log(listitems)
+    return (<ul>
+      {listitems.map(function (listValue) {
+        return <li>{listValue}</li>;
+      })}
+    </ul>)
+
+  }
+
   // for dialog box
   handleClickOpen = () => {
     this.setState({ dialogIsOpen: true });
@@ -39,11 +63,6 @@ export class Registration extends Component {
   handleClose = () => {
     this.setState({ dialogIsOpen: false });
   };
-
-
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
 
   handleChange = name => event => {
     // handles the change in the value of the dropdown
@@ -57,11 +76,12 @@ export class Registration extends Component {
     // check if any field are empty. if they are, call return to stop execution of handle submit
     if (!(this.state.email && this.state.fname && this.state.lname && this.state.password)) {
       // if it goes here, that means that any fields are empty
-      this.setState({ errorText: "Missing fields" })
+      this.setState({ errorText: "Missing fields. Check that you have filled in every input" })
       console.log("found missing fields")
       this.setState({ dialogIsOpen: true })
       return
     }
+
     console.log("no missing fields yay, creating a user model")
 
     // making post request to api server to create user model
@@ -77,9 +97,35 @@ export class Registration extends Component {
       password: this.state.password
     }
 
-    FUNC_SAMPLEGET()
+    FUNC_CREATEUSERMODEL(body, config).then(res => {
+      console.log("this is the response in registrations.js")
+      console.log(res)
+      if (!(res[0] === 201)) {
+        // unsuccessful user creation 
+        var errmsg = [];
 
+        var obj = res[1]
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            console.log(key + " -> " + obj[key]);
+            errmsg.push(obj[key])
 
+          }
+        }
+        console.log("the stuff going in generate list")
+        console.log(errmsg)
+        var todisplay = (this.generateUnorderedList(["eewgeg", "egewg", "fgfg"], 1))
+
+        this.setState({ errorText: todisplay })
+        this.setState({ dialogIsOpen: true })
+      } else {
+        // successful user creation
+        console.log("eyy user was made")
+        console.log(res)
+
+        // create profile
+      }
+    })
 
   }
 
@@ -168,12 +214,26 @@ export class Registration extends Component {
                 onChange={this.handleChange("password")}
                 value={this.state.password}
               />
+
+              <NativeSelect
+                  value={this.state.platform}
+                  onChange={this.handleChange('platform')}
+                  input={<Input name="platform" id="platformselect" />}>
+                  <option value="" disabled ></option>
+                  <option value={"twitter"}>twitter</option>
+                  <option value={"facebook"}>facebook</option>               
+                </NativeSelect>
+              <FormHelperText>Use the dropdown to select </FormHelperText>
             </div>
 
             <Button className="regbut" color="primary" variant="contained" type="submit">
               Submit
             </Button>
           </form>
+
+          <Typography variant = "body2">
+            Account Creation successful.
+          </Typography>
         </div>
 
         <div>
@@ -189,7 +249,7 @@ export class Registration extends Component {
             <DialogActions>
               <Button onClick={this.handleClose} color="primary" autoFocus>
                 Ok
-                        </Button>
+              </Button>
             </DialogActions>
           </Dialog>
         </div>
