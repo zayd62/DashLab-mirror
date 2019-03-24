@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Route path="/" exact component={Loginging} />
+        <Route path="/" exact component={Login} />
         <Route path="/jmm/" component={MyprofileJMM} />
         <Route path="/jmm/createPost" component={MakeAPost} />
         <Route path="/admin/createSocial/" component={Createsocial} />
