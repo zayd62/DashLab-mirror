@@ -6,18 +6,18 @@ import MakeAPost from "./MakeAPost";
 import Registration from "./Registration";
 import Createsocial from "./Createsocial";
 import MyprofileJMM from "./MyprofileJMM";
-import MyprofileSMM from "./MyprofileSMM";
-import PersonList from "./PersonList";
+import AdminHome from './AdminHome'
 
 class App extends Component {
   render() {
     return (
       <Router>
         <Route path="/" exact component={Login} />
-        <Route path="/jmm/" component={MyprofileJMM} />
-        <Route path="/jmm/createPost" component={MakeAPost} />
-        <Route path="/admin/createSocial/" component={Createsocial} />
-        <Route path="/admin/createUser/" component={Registration} />
+        <Route path="/jmm/" exact component={MyprofileJMM} />
+        <Route path="/jmm/createPost" exact component={MakeAPost} />
+        <Route path="/admin/" exact component={AdminHome} />
+        <Route path="/admin/createSocial" exact component={Createsocial} />
+        <Route path="/admin/createUser" exact component={Registration} />
       </Router>
     );
   }
