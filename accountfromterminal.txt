@@ -1,6 +1,8 @@
 
 
 python manage.py shell
+from django.contrib.auth.models import User
+
 a = User.objects.get(username = "admin@gmail.com")
 a.is_staff = True
 a.is_admin = True
