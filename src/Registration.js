@@ -19,7 +19,7 @@ import {
   NativeSelect,
 } from "@material-ui/core";
 import "./Registration.css";
-import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL } from "./api";
+import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL, FUNC_CREATEPROFILEMODEL } from "./api";
 
 // const names = [
 //   'Oliver Hansen',
@@ -46,7 +46,6 @@ export class Registration extends Component {
       dialogIsOpen: false, //used to control the dialog box 
       resData: "",
       optionsToRender: "",
-      profileID: []
     };
   }
 
@@ -57,32 +56,32 @@ export class Registration extends Component {
       this.setState({ resData: res.data })
       console.log("the state is")
       console.log(this.state.resData)
-      this.setState({optionsToRender: this.generateDropdown()})
+      this.setState({ optionsToRender: this.generateDropdown() })
     })
 
-  
+
   }
 
-  generateDropdown(){
+  generateDropdown() {
     var names = this.state.resData
     console.log("in generate dropdown")
     console.log(names)
 
     return (
       <div>
-          <Select multiple native value={this.state.profileID} 
-          onChange={this.handleChangeMultiple} 
+        <Select multiple native value={this.state.profileID}
+          onChange={this.handleChangeMultiple}
           inputProps={
-              {id: 'select-multiple-native',}
+            { id: 'select-multiple-native', }
           }>
           {names.map(name => (
-              <option key={name.id} value={name.id}>
-                  {(name.name + ": " +   name.platform.charAt(0).toUpperCase() + name.platform.slice(1))}
-              </option>
+            <option key={name.id} value={name.id}>
+              {(name.name + ": " + name.platform.charAt(0).toUpperCase() + name.platform.slice(1))}
+            </option>
           ))}
-    </Select>
+        </Select>
       </div>
-  )
+    )
   }
 
 
@@ -141,7 +140,7 @@ export class Registration extends Component {
     console.log("in handlesubmit, checking for empty fields")
 
     // check if any field are empty. if they are, call return to stop execution of handle submit
-    if (!(this.state.email && this.state.fname && this.state.lname && this.state.password && (this.state.profileID.length !== 0))) {
+    if (!(this.state.email && this.state.fname && this.state.lname && this.state.password)) {
       // if it goes here, that means that any fields are empty
       this.setState({ errorText: "Missing fields. Check that you have filled in every input" })
       console.log("found missing fields")
@@ -178,7 +177,38 @@ export class Registration extends Component {
         console.log("eyy user was made")
         console.log(res)
 
-        // create profile
+        // create profile object
+
+        // prepare the bpdy
+        var accountPerm = [];
+        if ((this.state.profileID)) {
+          accountPerm = this.state.profileID
+        }
+
+        var body = {
+          userid: res[1].id,
+          dashlab_admin: this.state.value,
+          first_name: this.state.fname,
+          last_name: this.state.lname,
+          account_permission: accountPerm
+        }
+
+        console.log("the body")
+        console.log(JSON.stringify(body))
+
+        // make request
+
+        FUNC_CREATEPROFILEMODEL(JSON.stringify(body), config).then(pres => {
+          if (!(pres[0] === 201)) {
+            var todisplay = (this.generateUnorderedList(this.getErrorMessageArray(pres), 1))
+            this.setState({ errorText: todisplay })
+            this.setState({ dialogIsOpen: true })
+          } else {
+            // successful profile creation
+            console.log("eyy profile was made")
+            console.log(pres)
+          }
+        })
       }
     })
 

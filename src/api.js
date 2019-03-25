@@ -38,6 +38,30 @@ export const FUNC_SAMPLEGET = async function get() {
     console.log(response)
 }
 
+export const FUNC_GETSOCIALMODEL = async function get() {
+    console.log("hey its time to make a get request")
+    var response;
+    try {
+        // change to ".../todos/2000"
+        await axios.get(URL_SOCIALACCOUNT).then(res => {
+            console.log("the reposnse is here")
+            console.log(res)
+            response = res
+        })
+
+    } catch (error) {
+        // https://github.com/axios/axios#handling-errors
+        console.log("oh shit, thats not good")
+        console.error(error.response.status);
+        console.error(error.response.data);
+        response = error
+
+    }
+    console.log("this SHOULD print after the api response has been received has finished")
+    console.log(response)
+    return response
+}
+
 export const FUNC_CREATEUSERMODEL = async function post(body, config) {
     // create a user model
     console.log("hey its time to make a post request")
@@ -104,26 +128,35 @@ export const FUNC_CREATESOCIALMODEL = async function post(body, config) {
     return response
 }
 
-export const FUNC_GETSOCIALMODEL = async function get() {
-    console.log("hey its time to make a get request")
-    var response;
+export const FUNC_CREATEPROFILEMODEL = async function post(body, config) {
+    // create a social media account
+    console.log("hey its time to make a post request")
+    var response = [];
     try {
-        // change to ".../todos/2000"
-        await axios.get(URL_SOCIALACCOUNT).then(res => {
+        await axios.post(URL_PROFILE, body, config).then(res => {
             console.log("the reposnse is here")
-            console.log(res)
-            response = res
+            console.log(res.status)
+            console.log(res.data)
+
+            response.push(res.status)
+            response.push(res.data)
+            // return response "this does nothing apparently"
         })
 
     } catch (error) {
         // https://github.com/axios/axios#handling-errors
+
         console.log("oh shit, thats not good")
         console.error(error.response.status);
         console.error(error.response.data);
-        response = error
 
+        // // return an array contain
+        response.push(error.response.status)
+        response.push(error.response.data)
+        return response
     }
-    console.log("this SHOULD print after the api response has been received has finished")
+
+    console.log("this SHOULD print after the api response has been received has finished, unless there is a return")
     console.log(response)
     return response
 }
