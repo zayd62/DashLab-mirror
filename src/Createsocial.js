@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import {
   Dialog,
   DialogActions,
@@ -21,7 +22,7 @@ import {
   Toolbar
 } from "@material-ui/core";
 import "./Createsocial.css";
-import { FUNC_CREATESOCIALMODEL } from './api'
+import { FUNC_CREATESOCIALMODEL, FUNC_LOGOUT } from './api'
 
 import { resolve4 } from "dns";
 export class Createsocial extends Component {
@@ -35,6 +36,18 @@ export class Createsocial extends Component {
       dialogIsOpen: false //used to control the dialog box because
     };
   }
+
+  handleLogout = () => {
+    var config = {
+      headers: { "Authorization": `Token ${sessionStorage.token}` }
+    }
+    var body = {}
+    FUNC_LOGOUT(body, config).then(res => {
+      console.log("logging out ");
+      this.setState({ newLocation: <Redirect push to="/" /> });
+    })
+  }
+
 
   // for dialog box
   handleClickOpen = () => {
@@ -98,14 +111,13 @@ export class Createsocial extends Component {
   render() {
     return (
       <Fragment>
-        <AppBar position="relative" color="default">
+        <AppBar position="static" color="default">
           <Toolbar>
             <Typography varian="h2" noWrap>
               DashLab
             </Typography>
-            <div className="Barbuttons">
-              <Button>My profile</Button>
-              <Button>Log out</Button>
+            <div className="Barbuttonsss">
+              <Button onClick={this.handleLogout}>Log out</Button>
             </div>
           </Toolbar>
         </AppBar>
@@ -161,6 +173,7 @@ export class Createsocial extends Component {
               </Button>
           </DialogActions>
         </Dialog>
+        {this.state.newLocation}
       </Fragment>
     );
   }
