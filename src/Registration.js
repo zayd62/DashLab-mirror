@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Redirect } from 'react-router-dom'
 import {
   RadioGroup,
   FormControlLabel,
@@ -19,7 +20,7 @@ import {
   NativeSelect,
 } from "@material-ui/core";
 import "./Registration.css";
-import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL, FUNC_CREATEPROFILEMODEL } from "./api";
+import { FUNC_CREATEUSERMODEL, FUNC_GETSOCIALMODEL, FUNC_CREATEPROFILEMODEL, FUNC_LOGOUT } from "./api";
 
 // const names = [
 //   'Oliver Hansen',
@@ -46,6 +47,7 @@ export class Registration extends Component {
       dialogIsOpen: false, //used to control the dialog box 
       resData: "",
       optionsToRender: "",
+      // value: "false"
     };
   }
 
@@ -58,8 +60,17 @@ export class Registration extends Component {
       console.log(this.state.resData)
       this.setState({ optionsToRender: this.generateDropdown() })
     })
+  }
 
-
+  handleLogout = () => {
+    var config = {
+        headers: { "Authorization": `Token ${sessionStorage.token}` }
+      }
+    var body = {}
+    FUNC_LOGOUT(body, config).then( res => {
+      console.log("logging out ");
+      this.setState({newLocation: <Redirect push to="/"/> });
+    })
   }
 
   generateDropdown() {
@@ -190,7 +201,8 @@ export class Registration extends Component {
           dashlab_admin: this.state.value,
           first_name: this.state.fname,
           last_name: this.state.lname,
-          account_permission: accountPerm
+          account_permission: accountPerm,
+          email: this.state.email
         }
 
         console.log("the body")
@@ -207,6 +219,7 @@ export class Registration extends Component {
             // successful profile creation
             console.log("eyy profile was made")
             console.log(pres)
+            alert("user successfully created")
           }
         })
       }
@@ -217,13 +230,16 @@ export class Registration extends Component {
   render() {
     return (
       <Fragment>
-        <AppBar position="relative" color="default">
-          <Toolbar>
-            <Typography varian="h2" noWrap>
-              DashLab
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography varian="h2" noWrap>
+                DashLab
+              </Typography>
+              <div className="Barbuttonsss">
+                <Button onClick={this.handleLogout}>Log out</Button>
+              </div>
+            </Toolbar>
+          </AppBar>
 
         <div className="Backbox2">
           <div className="Title1">
@@ -303,6 +319,7 @@ export class Registration extends Component {
             </div>
 
             {this.state.optionsToRender}
+            {this.state.newLocation}
 
             <Button className="regbut" color="primary" variant="contained" type="submit">
               Submit
