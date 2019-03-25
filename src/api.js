@@ -160,3 +160,151 @@ export const FUNC_CREATEPROFILEMODEL = async function post(body, config) {
     console.log(response)
     return response
 }
+
+export const FUNC_CREATEPOST = async function post(body, config) {
+    // create a social media account
+    console.log("hey its time to make a post request")
+    var response = [];
+    try {
+        await axios.post(URL_POST, body, config).then(res => {
+            console.log("the reposnse is here")
+            console.log(res.status)
+            console.log(res.data)
+
+            response.push(res.status)
+            response.push(res.data)
+            // return response "this does nothing apparently"
+        })
+
+    } catch (error) {
+        // https://github.com/axios/axios#handling-errors
+
+        console.log("oh shit, thats not good")
+        console.error(error.response.status);
+        console.error(error.response.data);
+
+        // // return an array contain
+        response.push(error.response.status)
+        response.push(error.response.data)
+        return response
+    }
+
+    console.log("this SHOULD print after the api response has been received has finished, unless there is a return")
+    console.log(response)
+    return response
+}
+
+export const FUNC_LOGIN = async function post(body, config) {
+    // create a social media account
+    console.log("hey its time to make a post request")
+    var response = [];
+    try {
+        await axios.post(URL_LOGIN , body, config).then(res => {
+            console.log("the reposnse is here")
+            console.log(res.status)
+            console.log(res.data)
+
+            response.push(res.status)
+            response.push(res.data)
+            // return response "this does nothing apparently"
+        })
+
+    } catch (error) {
+        // https://github.com/axios/axios#handling-errors
+
+        console.log("oh shit, thats not good")
+        console.error(error.response.status);
+        console.error(error.response.data);
+
+        // // return an array contain
+        response.push(error.response.status)
+        response.push(error.response.data)
+        return response
+    }
+
+    console.log("this SHOULD print after the api response has been received has finished, unless there is a return")
+    console.log(response)
+    return response
+}
+
+export const FUNC_LOGOUT = async function post(body, configWithToken) {
+    // create a social media account
+    console.log("hey its time to make a post request")
+    var response = [];
+
+    try {
+        await axios.post(URL_LOGOUT, body, configWithToken).then(res => {
+            console.log("the reposnse is here")
+            console.log(res.status)
+            console.log(res.data)
+
+            response.push(res.status)
+            response.push(res.data)
+            // return response "this does nothing apparently"
+        })
+
+    } catch (error) {
+        // https://github.com/axios/axios#handling-errors
+
+        console.log("oh shit, thats not good")
+        console.log(error)
+        console.error(error.response.status);
+        console.error(error.response.data);
+
+        // // return an array contain
+        response.push(error.response.status)
+        response.push(error.response.data)
+        return response
+    }
+
+    console.log("this SHOULD print after the api response has been received has finished, unless there is a return")
+    console.log(response)
+    return response
+}
+
+export const FUNC_GETUSERUSINGTOKEN = async function get(configWithToken) {
+    console.log("hey its time to make a get request")
+    var response;
+    try {
+        
+        await axios.get(URL_LISTCURRENTUSER, configWithToken).then(res => {
+            console.log("the reposnse is here")
+            console.log(res)
+            response = res
+        })
+
+    } catch (error) {
+        // https://github.com/axios/axios#handling-errors
+        console.log("oh shit, thats not good")
+        console.error(error.response.status);
+        console.error(error.response.data);
+        response = error
+
+    }
+    console.log("this SHOULD print after the api response has been received has finished")
+    return response
+}
+
+export const FUNC_GETPROFILEUSINGID = async function get(id) {
+    console.log("hey its time to make a get request")
+    var response;
+    try {
+        
+        await axios.get(URL_PROFILE + `${id}`).then(res => {
+            console.log("the reposnse is here")
+            console.log(res)
+            response = res
+        })
+
+    } catch (error) {
+        // https://github.com/axios/axios#handling-errors
+        console.log("oh shit, thats not good")
+        console.error(error.response.status);
+        console.error(error.response.data);
+        response = error
+
+    }
+    console.log("this SHOULD print after the api response has been received has finished")
+    return response
+}
+
