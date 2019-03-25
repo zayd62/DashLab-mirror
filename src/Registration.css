@@ -1,0 +1,60 @@
+.data {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.Role {
+  margin-left: 40.2%;
+  margin-right: 40%;
+}
+.regbut {
+  width: 220px;
+  background-color: lightcyan;
+  border-radius: 0.2cm;
+}
+.regbut:hover {
+  background-color: lightcyan;
+  border-radius: 0.2cm;
+}
+.fname:hover {
+  background-color: lightcyan;
+  transition-duration: 0.8s;
+  border-radius: 0.2cm;
+}
+.lname:hover {
+  background-color: lightcyan;
+  transition-duration: 0.8s;
+  border-radius: 0.2cm;
+}
+.email:hover {
+  background-color: lightcyan;
+  transition-duration: 0.8s;
+  border-radius: 0.2cm;
+}
+.username:hover {
+  background-color: lightcyan;
+  transition-duration: 0.8s;
+  border-radius: 0.2cm;
+}
+.pass1:hover {
+  background-color: lightcyan;
+  transition-duration: 0.8s;
+  border-radius: 0.2cm;
+}
+.pass2:hover {
+  background-color: lightcyan;
+  transition-duration: 0.8s;
+  border-radius: 0.2cm;
+}
+.Barbutton{
+  margin-left: 91%;
+}
+.Backbox2{
+  height: 100%;
+  width: 70%;
+  background-color: aliceblue;
+  margin-left: 15%;
+  margin-top: 2%;
+}
