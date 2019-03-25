@@ -1,2 +1,8 @@
-python manage.py createsuperuser
-fill in username, email and password
+
+
+python manage.py shell
+a = User.objects.get(username = "admin@gmail.com")
+a.is_staff = True
+a.is_admin = True
+a.is_superuser = True
+a.save()
